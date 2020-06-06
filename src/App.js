@@ -1,16 +1,20 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 // Select a color from dropdown menu of colors
 class App extends Component {
-  constructor() {
+  constructor(props) {
     super(props);
     this.state = {color: ""};
   }
+  
+  handleChange = (event) => {
+    this.setState({color: event.target.value});
+  } 
   render() {
     return (
-      <select value={this.state.color} onChange={this.handleChange}>        
+      <select value={this.state.color} onChange={this.handleChange}>
+        <option value="none">---</option>        
         <option value="red">Red</option>
         <option value="blue">Blue</option>
         <option value="gray">Gray</option>
