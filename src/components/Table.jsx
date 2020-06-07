@@ -1,86 +1,66 @@
 import React, { Component } from 'react';
 import TableRow from './TableRow';
-import TableColumn from './TableColumn';
-import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 
 class Table extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       colors: this.props.color,
-      row: [],
-      col: [],
+      rows: 0,
+      columns: 1,
     };
   }
 
   componentDidUpdate() {
-    if (this.props.color !== this.state.colors){
-      this.setState({colors: this.props.color})
+    if(this.props.color !== this.state.color)
+    {
+      this.setState({colors: this.props.color});
     }
   }
 
-  onRowChange = () => {
-    let row = this.state.row;
-    row.push('   ');
-    this.setState({ row });
+  addRow = () => {
+    this.setState({ rows: this.state.rows + 1 });
   };
 
-  onColChange = () => {
-    let col = this.state.col;
-    col.push('');
-    this.setState({ col });
+  addColumn = () => {
+    this.setState({ columns: this.state.columns + 1 });
   };
 
-  onRemoveRow = () => {
-    let row = this.state.row;
-    row.pop();
-    this.setState({ row });
+  removeRow = () => {
+    this.setState({ rows: this.state.rows - 1 });
+  };
+
+  removeColumn = () => {
+    this.setState({ columns: this.state.columns - 1 });
   };
   
   handleCellClick = (event) => {
     event.target.style.backgroundColor = this.state.color;
   }
   render() {
+    let table = [];
+
+    if (!table) {
+      return <p></p>;
+    } else {
+      for (let i = 0; i < this.state.rows; i++) {
+        table.push(<TableRow key={uuidv4()} columns={this.state.columns} />);
+      }
+    }
+
     return (
       <div>
-        <TableRow
-          row={this.state.row}
-          onRowChange={this.onRowChange}
-          onRemoveRow={this.onRemoveRow}
-        />
-        <TableColumn col={this.state.col} onColChange={this.onColChange} />
+        <button onClick={this.addRow}>Add Row</button>
+        <button onClick={this.addColumn}>Add Column</button>
+        <button onClick={this.removeRow}>Remove Row</button>
+        <button onClick={this.removeColumn}>Remove Column</button>
         <table>
-          {this.state.row.map((r) => {
-            return (
-              <tbody key={uuidv4()}>
-                <tr>
-                  <td style={style} onClick={this.handleCellClick}>{r}</td>
-                </tr>
-              </tbody>
-            );
-          })}
-
-          {this.state.col.map((c) => {
-            return (
-              <tbody key={uuidv4()}>
-                <tr>
-                  <td style={style} onClick={this.handleCellClick}>{c}</td>
-                </tr>
-              </tbody>
-            );
-          })}
+          <tbody>{table}</tbody>
         </table>
       </div>
     );
   }
 }
 
-const style = {
-  border: '1px solid black',
-};
-// Table.propTypes = {
-//   row: PropTypes.number,
-//   col: PropTypes.number,
-// };
 export default Table;

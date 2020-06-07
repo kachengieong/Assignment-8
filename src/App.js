@@ -1,24 +1,13 @@
-
 import React, { Component } from 'react';
 import Table from './components/Table';
 import './App.css';
-
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {color: ""};
     this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
   }
-
-  handleClick = (e) => {
-    console.log('Clicked');
-    this.setState(
-      { [e.target.name]: e.target.value++ },
-      console.log({ [e.target.name]: e.target.value })
-    );
-  };
 
   handleChange = (event) => {
     this.setState({color: event.target.value});
@@ -38,7 +27,7 @@ class App extends Component {
       </select>
       <Table color={this.state.color} />
       </>
-    )
+    );
   }
 }
 
