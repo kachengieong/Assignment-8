@@ -3,10 +3,10 @@ import TableRow from './TableRow';
 import { v4 as uuidv4 } from 'uuid';
 
 class Table extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      colors: this.props.color,
+      color: this.props.color,
       rows: 0,
       columns: 1,
     };
@@ -15,7 +15,7 @@ class Table extends Component {
   componentDidUpdate() {
     if(this.props.color !== this.state.color)
     {
-      this.setState({colors: this.props.color});
+      this.setState({color: this.props.color});
     }
   }
 
@@ -34,10 +34,7 @@ class Table extends Component {
   removeColumn = () => {
     this.setState({ columns: this.state.columns - 1 });
   };
-  
-  handleCellClick = (event) => {
-    event.target.style.backgroundColor = this.state.color;
-  }
+
   render() {
     let table = [];
 
@@ -45,7 +42,7 @@ class Table extends Component {
       return <p></p>;
     } else {
       for (let i = 0; i < this.state.rows; i++) {
-        table.push(<TableRow key={uuidv4()} columns={this.state.columns} />);
+        table.push(<TableRow key={uuidv4()} columns={this.state.columns} color={this.state.color} />);
       }
     }
 

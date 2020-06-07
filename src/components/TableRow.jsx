@@ -6,7 +6,7 @@ function TableRow(props) {
   let columns = [];
 
   for (let i = 0; i < props.columns; i++) {
-    columns.push(<TableColumn key={uuidv4()} />);
+    columns.push(<TableColumn key={uuidv4()} color={props.color} />);
   }
 
   return <tr>{columns}</tr>;

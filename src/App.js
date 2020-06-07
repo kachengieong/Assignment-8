@@ -5,7 +5,7 @@ import './App.css';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {color: ""};
+    this.state = {color: "white"};
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -15,7 +15,7 @@ class App extends Component {
   // Select a color from dropdown menu of colors
   render() {
     return (
-      <>
+      <div>
         <select value={this.state.color} onChange={this.handleChange}>
         <option value="none">---</option>        
         <option value="red">Red</option>
@@ -26,7 +26,7 @@ class App extends Component {
         <option value="orange">Orange</option>
       </select>
       <Table color={this.state.color} />
-      </>
+      </div>
     );
   }
 }
