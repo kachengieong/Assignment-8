@@ -1,33 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
+import TableColumn from './TableColumn';
+import { v4 as uuidv4 } from 'uuid';
 
-export class TableRow extends Component {
-  handleClick = (event) => {
-    event.preventDefault();
-    this.props.onRowChange(event.target.value);
-  };
+function TableRow(props) {
+  let columns = [];
 
-  handleRemove = (event) => {
-    event.preventDefault();
-    this.props.onRemoveRow(event.target.value);
-  };
-  render() {
-    return (
-      <div>
-        <form name='form'>
-          <button name='row' value={this.props.row} onClick={this.handleClick}>
-            Add Row
-          </button>
-          <button
-            name='removeRow'
-            value={this.props.row}
-            onClick={this.handleRemove}
-          >
-            Remove Row
-          </button>
-        </form>
-      </div>
-    );
+  for (let i = 0; i < props.columns; i++) {
+    columns.push(<TableColumn key={uuidv4()} />);
   }
+
+  return <tr>{columns}</tr>;
 }
 
 export default TableRow;
