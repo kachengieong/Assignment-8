@@ -8,9 +8,16 @@ class Table extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      colors: this.props.color,
       row: [],
       col: [],
     };
+  }
+
+  componentDidUpdate() {
+    if (this.props.color !== this.state.colors){
+      this.setState({colors: this.props.color})
+    }
   }
 
   onRowChange = () => {
@@ -30,7 +37,10 @@ class Table extends Component {
     row.pop();
     this.setState({ row });
   };
-
+  
+  handleCellClick = (event) => {
+    event.target.style.backgroundColor = this.state.color;
+  }
   render() {
     return (
       <div>
@@ -45,7 +55,7 @@ class Table extends Component {
             return (
               <tbody key={uuidv4()}>
                 <tr>
-                  <td style={style}>{r}</td>
+                  <td style={style} onClick={this.handleCellClick}>{r}</td>
                 </tr>
               </tbody>
             );
@@ -55,7 +65,7 @@ class Table extends Component {
             return (
               <tbody key={uuidv4()}>
                 <tr>
-                  <td style={style}>{c}</td>
+                  <td style={style} onClick={this.handleCellClick}>{c}</td>
                 </tr>
               </tbody>
             );

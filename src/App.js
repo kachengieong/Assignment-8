@@ -3,11 +3,13 @@ import React, { Component } from 'react';
 import Table from './components/Table';
 import './App.css';
 
-// Select a color from dropdown menu of colors
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {color: ""};
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick = (e) => {
@@ -21,11 +23,10 @@ class App extends Component {
   handleChange = (event) => {
     this.setState({color: event.target.value});
   } 
-
+  // Select a color from dropdown menu of colors
   render() {
     return (
       <>
-        <Table />
         <select value={this.state.color} onChange={this.handleChange}>
         <option value="none">---</option>        
         <option value="red">Red</option>
@@ -35,6 +36,7 @@ class App extends Component {
         <option value="yellow">Yellow</option>
         <option value="orange">Orange</option>
       </select>
+      <Table color={this.state.color} />
       </>
     )
   }
